@@ -1,0 +1,18 @@
+*{box-sizing:border-box;margin:0;padding:0;font-family:sans-serif}
+body{background:#f6f7fb}
+.hidden{display:none!important}
+#login-page{display:flex;justify-content:center;align-items:center;min-height:100vh;background:linear-gradient(135deg,#6a5cff,#a1c4fd)}
+.login-box{background:white;padding:30px;border-radius:20px;width:90%;max-width:380px;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,0.2)}
+.login-box h1{color:#6a5cff}.tabs{display:flex;margin:15px 0;background:#f0f0ff;border-radius:10px;padding:4px}
+.tabs button{flex:1;padding:8px;border:none;background:transparent;border-radius:8px;cursor:pointer}
+.tabs button.active{background:#6a5cff;color:white}
+input{width:100%;padding:12px;margin:6px 0;border:1px solid #ddd;border-radius:10px}
+.primary{background:#6a5cff;color:white;border:none;padding:12px;width:100%;border-radius:10px;cursor:pointer;font-weight:700;margin-top:8px}
+header{background:white;padding:15px 20px;display:flex;justify-content:space-between;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+nav{display:flex;gap:8px;padding:10px 20px;overflow:auto}
+nav button{padding:10px 16px;border:none;background:white;border-radius:20px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.view{background:white;margin:15px 20px;padding:20px;border-radius:16px}
+.item{padding:12px;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center}
+.item a{color:#6a5cff;text-decoration:none;font-weight:600}
+.hint{font-size:11px;color:#888;margin-top:10px;text-align:left;background:#f9f9ff;padding:8px;border-radius:8px}
+#attendance-sheet.row{display:flex;justify-content:space-between;padding:10px;border-bottom:1px solid #eee}
