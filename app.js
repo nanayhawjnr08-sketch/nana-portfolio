@@ -1,37 +1,47 @@
-// FINAL FIX for GitHub Pages
 function login(e) {
   if(e) e.preventDefault();
   
-  const regInput = document.getElementById('regNo') || document.querySelector('input[type="text"]');
-  const passInput = document.getElementById('password') || document.querySelector('input[type="password"]');
+  // Get ALL inputs on page, find the ones that are visible and have values
+  const allInputs = document.querySelectorAll('input');
+  let reg = '';
+  let pass = '';
   
-  const reg = regInput ? regInput.value.trim() : '';
-  const pass = passInput ? passInput.value.trim() : '';
+  allInputs.forEach(inp => {
+    if(inp.offsetParent !== null && inp.value.trim() !== '') { // visible
+      if(inp.type === 'password') pass = inp.value.trim();
+      else reg = inp.value.trim();
+    }
+  });
+  
+  // Fallback if above fails
+  if(!reg) {
+    const t = document.querySelector('input[type="text"]');
+    if(t) reg = t.value.trim();
+  }
+  if(!pass) {
+    const p = document.querySelector('input[type="password"]');
+    if(p) pass = p.value.trim();
+  }
+
+  console.log('Trying:', reg, pass); // check in console
 
   const users = [
     { id: 'BTECH/COMP/024', password: 'password123', role: 'Student' },
     { id: 'BTE/C/26/01', password: 'password123', role: 'Student' },
-    { id: 'lecturer@btech.edu.gh', password: 'password123', role: 'Lecturer' }
+    { id: 'BTECH/COMP/001', password: 'password123', role: 'Student' },
+    { id: 'lecturer@btech.edu.gh', password: 'password123', role: 'Lecturer' },
+    { id: 'rep@btech.edu.gh', password: 'password123', role: 'Rep' }
   ];
 
   const found = users.find(u => u.id.toLowerCase() === reg.toLowerCase() && u.password === pass);
 
   if(found) {
+    alert('Welcome ' + found.role + '! Login success ✅');
     localStorage.setItem('user', JSON.stringify(found));
-    alert('Welcome ' + found.role + ': ' + found.id);
-    // If you have dashboard.html it will go there, if not it will stay
-    if (document.location.href.includes('dashboard.html') === false) {
-        window.location.href = 'dashboard.html';
-    }
+    window.location.href = 'dashboard.html';
   } else {
-    alert('Wrong credentials!\nUse:\nBTECH/COMP/024 / password123\nor lecturer@btech.edu.gh / password123');
+    alert('I read: "' + reg + '" / "' + pass + '"\nNot found. Use BTECH/COMP/024 / password123');
   }
   return false;
 }
-
-// Make it work for both onclick and form submit
 window.login = login;
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.querySelector('form');
-  if(form) form.addEventListener('submit', login);
-});
