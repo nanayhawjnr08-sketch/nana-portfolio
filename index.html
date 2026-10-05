@@ -1,50 +1,119 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BTech Computer Engineering Portal</title>
-<link rel="stylesheet" href="style.css">
+<title>BTech Comp. Eng. Portal 2026</title>
+<style>
+:root{--primary:#2d2dc7;--primary2:#5a5aff}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,Arial,sans-serif}
+body{min-height:100vh;background:radial-gradient(1000px 500px at 20% 10%,#5a5aff 0%,#2d2dc7 40%,#1515a5 100%);display:flex;align-items:center;justify-content:center;padding:20px}
+.wrap{width:1050px;max-width:100%;display:grid;grid-template-columns:1.1fr 0.9fr;background:rgba(255,255,255,0.1);backdrop-filter:blur(20px);border-radius:28px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.15)}
+.left{padding:50px;color:white;display:flex;flex-direction:column;justify-content:space-between}
+.left h1{font-size:42px;line-height:0.95;font-weight:900}
+.left h1 span{color:#a5b4ff}
+.left p{margin-top:20px;opacity:0.85;line-height:1.6}
+.features{margin-top:40px;display:grid;gap:12px}
+.feat{background:rgba(255,255,255,0.12);padding:14px 16px;border-radius:12px;display:flex;gap:12px;align-items:center}
+.right{background:white;padding:40px 35px;display:flex;flex-direction:column;justify-content:center}
+.brand{font-weight:900;color:var(--primary);font-size:22px;margin-bottom:6px}
+.sub{color:#666;font-size:13px;margin-bottom:25px}
+.tabs{display:flex;background:#eef2ff;padding:5px;border-radius:12px;margin-bottom:25px}
+.tab{flex:1;padding:10px;text-align:center;border-radius:9px;cursor:pointer;font-weight:600;font-size:14px;transition:0.2s}
+.tab.active{background:var(--primary);color:white;box-shadow:0 5px 15px rgba(45,45,199,0.3)}
+.input-group{margin-bottom:16px}
+.input-group label{font-size:12px;color:#666;font-weight:600;display:block;margin-bottom:6px}
+.input-group input{width:100%;padding:14px 14px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:15px;outline:none;transition:0.2s}
+.input-group input:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(45,45,199,0.1)}
+.btn{width:100%;background:var(--primary);color:white;border:none;padding:14px;border-radius:10px;font-weight:700;font-size:15px;cursor:pointer;transition:0.2s;margin-top:10px}
+.btn:hover{background:#1e1ea8;transform:translateY(-1px)}
+.hint{margin-top:18px;background:#f8f9ff;border:1px dashed #c7d2fe;padding:12px;border-radius:10px;font-size:11px;color:#555;line-height:1.5}
+.hint b{color:var(--primary)}
+.footer{margin-top:20px;text-align:center;font-size:11px;color:#999}
+@media(max-width:800px){.wrap{grid-template-columns:1fr}.left{display:none}}
+</style>
 </head>
 <body>
-<div id="login-page">
-  <div class="login-box">
-    <h1>BTech Comp. Eng.</h1>
-    <p>Class Portal 2026</p>
-    <div class="tabs"><button id="tab-student" class="active" onclick="switchTab('student')">Student</button><button id="tab-lecturer" onclick="switchTab('lecturer')">Lecturer / Rep</button></div>
-    <input id="identifier" placeholder="Reg No: BTECH/COMP/001">
-    <input id="password" type="password" placeholder="Password">
-    <button class="primary" onclick="login()">Login</button>
-    <small id="login-error"></small>
-    <div class="hint">Test Student: BTECH/COMP/024 / password123<br>Lecturer: lecturer@btech.edu.gh / password123<br>Rep: rep@btech.edu.gh / password123</div>
-  </div>
+<div class="wrap">
+<div class="left">
+<div>
+<h1>BTech<br>Comp. Eng.<br><span>Class Portal<br>2026</span></h1>
+<p>Secure portal for Students, Lecturers and Class Rep. Access timetable, notes, attendance & announcements.</p>
+<div class="features">
+<div class="feat">📚 <div><b>Lecture Notes</b><br><span style="font-size:12px;opacity:0.8">Download all materials</span></div></div>
+<div class="feat">🗓️ <div><b>Smart Timetable</b><br><span style="font-size:12px;opacity:0.8">Never miss a class</span></div></div>
+<div class="feat">📊 <div><b>Results & CGPA</b><br><span style="font-size:12px;opacity:0.8">Track your progress</span></div></div>
+</div>
+</div>
+<div style="font-size:11px;opacity:0.6">© 2026 Computer Engineering Dept.</div>
 </div>
 
-<div id="app" class="hidden">
-  <header><h2 id="welcome">Welcome</h2><button onclick="logout()">Logout</button></header>
-  <nav><button onclick="showView('notes')">📚 Notes</button><button onclick="showView('attendance')">📋 Attendance</button><button onclick="showView('students')" id="students-tab">👥 Students</button><button onclick="showView('upload')" id="upload-tab">⬆️ Upload</button></nav>
+<div class="right">
+<div class="brand">Welcome back</div>
+<div class="sub">Login to your account</div>
 
-  <section id="view-notes" class="view"><h3>Lecture Notes</h3><div id="notes-list"></div></section>
-
-  <section id="view-attendance" class="view hidden">
-    <h3 id="att-title">Attendance</h3>
-    <div id="lecturer-attendance-tools" class="hidden">
-      <input type="date" id="att-date"><input id="att-course" placeholder="Course Code e.g. COMP401"><button onclick="loadStudentsForAttendance()">Load Students</button>
-      <div id="attendance-sheet"></div>
-      <button class="primary" onclick="saveAttendance()">Save Attendance</button>
-    </div>
-    <div id="student-attendance-list"></div>
-  </section>
-
-  <section id="view-students" class="view hidden"><h3>Class List - Reg No & Full Name</h3><div id="students-list"></div></section>
-
-  <section id="view-upload" class="view hidden">
-    <h3>Upload Lecture Note (Rep / Lecturer Only)</h3>
-    <input id="note-title" placeholder="Title e.g. Data Structures Ch1">
-    <input id="note-course" placeholder="Course Code e.g. COMP401">
-    <input type="file" id="note-file"><button class="primary" onclick="uploadNote()">Upload</button>
-  </section>
+<div class="tabs">
+<div id="tab-student" class="tab active" onclick="switchTab('student')">Student</div>
+<div id="tab-lecturer" class="tab" onclick="switchTab('lecturer')">Lecturer / Rep</div>
 </div>
 
-<script src="app.js"></script>
+<div id="studentForm">
+<div class="input-group"><label>Registration Number</label><input id="regNo" type="text" placeholder="BTECH/COMP/024" value="BTECH/COMP/024"></div>
+<div class="input-group"><label>Password</label><input id="password" type="password" placeholder="••••••••" value="password123"></div>
+</div>
+
+<div id="lecturerForm" style="display:none">
+<div class="input-group"><label>Email Address</label><input id="email" type="text" placeholder="lecturer@btech.edu.gh"></div>
+<div class="input-group"><label>Password</label><input id="pass2" type="password" placeholder="••••••••"></div>
+</div>
+
+<button class="btn" onclick="login()">Login →</button>
+
+<div class="hint">
+<b>Demo Accounts:</b><br>
+Student: BTECH/COMP/024 / password123<br>
+Lecturer: lecturer@btech.edu.gh / password123<br>
+Rep: rep@btech.edu.gh / password123
+</div>
+<div class="footer">BTech Project by Nana Yaw • 2026</div>
+</div>
+</div>
+
+<script>
+function switchTab(t){
+ document.getElementById('tab-student').classList.toggle('active', t==='student');
+ document.getElementById('tab-lecturer').classList.toggle('active', t==='lecturer');
+ document.getElementById('studentForm').style.display = t==='student' ? 'block' : 'none';
+ document.getElementById('lecturerForm').style.display = t==='lecturer' ? 'block' : 'none';
+}
+function getValues(){
+ let reg='', pass='';
+ if(document.getElementById('studentForm').style.display !== 'none'){
+   reg = document.getElementById('regNo').value.trim();
+   pass = document.getElementById('password').value.trim();
+ } else {
+   reg = document.getElementById('email').value.trim();
+   pass = document.getElementById('pass2').value.trim();
+ }
+ return {reg, pass};
+}
+function login(e){
+ if(e) e.preventDefault();
+ const {reg, pass} = getValues();
+ const users=[
+  {id:'BTECH/COMP/024',password:'password123',role:'Student'},
+  {id:'BTE/C/26/01',password:'password123',role:'Student'},
+  {id:'lecturer@btech.edu.gh',password:'password123',role:'Lecturer'},
+  {id:'rep@btech.edu.gh',password:'password123',role:'Rep'}
+ ];
+ const found = users.find(u=>u.id.toLowerCase()===reg.toLowerCase() && u.password===pass);
+ if(found){
+  localStorage.setItem('user', JSON.stringify(found));
+  location.href='dashboard.html';
+ } else {
+  alert('Invalid! Try:\nBTECH/COMP/024 / password123\nor lecturer@btech.edu.gh / password123');
+ }
+}
+</script>
 </body>
 </html>
