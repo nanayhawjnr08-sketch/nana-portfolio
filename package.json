@@ -1,5 +1,5 @@
 {
-  "name": "btech-comp-eng-portal-v2",
+  "name": "btech-store-edition",
   "type": "module",
   "dependencies": {
     "express": "^4.18.2",
