@@ -1,53 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BTech Portal - Dashboard</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BTech Portal - Store Edition</title>
 <style>
-:root{--primary:#2d2dc7;--bg:#eef2ff}
 *{margin:0;padding:0;box-sizing:border-box;font-family:Inter,Arial,sans-serif}
-body{background:var(--bg);min-height:100vh}
-header{background:white;padding:15px 25px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
-.logo{font-weight:800;color:var(--primary);font-size:20px}
-.badge{background:var(--primary);color:white;padding:6px 12px;border-radius:20px;font-size:12px}
-.container{max-width:1100px;margin:25px auto;padding:0 15px;display:grid;grid-template-columns:250px 1fr;gap:20px}
-.sidebar{background:white;border-radius:15px;padding:20px;height:fit-content}
-.sidebar h3{font-size:14px;color:#666;margin-bottom:15px}
-.menu{list-style:none}
-.menu li{padding:12px;border-radius:10px;cursor:pointer;margin-bottom:5px;display:flex;gap:10px}
-.menu li.active,.menu li:hover{background:var(--bg);color:var(--primary);font-weight:600}
-.main{display:grid;gap:20px}
-.card{background:white;border-radius:15px;padding:25px;box-shadow:0 5px 15px rgba(0,0,0,0.04)}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
-.stat{background:linear-gradient(135deg,var(--primary),#5a5aff);color:white;border-radius:12px;padding:20px}
-.stat h2{font-size:28px}
-table{width:100%;border-collapse:collapse;margin-top:10px}
-th,td{padding:12px;text-align:left;border-bottom:1px solid #eee;font-size:14px}
-th{color:#666}
-.btn{background:var(--primary);color:white;border:none;padding:10px 18px;border-radius:8px;cursor:pointer}
-.btn-outline{border:1px solid var(--primary);color:var(--primary);background:white;padding:10px 18px;border-radius:8px;cursor:pointer}
-@media(max-width:768px){.container{grid-template-columns:1fr}.stats{grid-template-columns:1fr}}
+body{background:#0f0f13;color:white;min-height:100vh;overflow-x:hidden}
+header{position:sticky;top:0;z-index:10;background:rgba(15,15,19,0.8);backdrop-filter:blur(20px);padding:15px 25px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #222}
+.logo{font-weight:900;font-size:20px;letter-spacing:-0.5px} .logo span{color:#6c5bff}
+.search{background:#1c1c22;border:1px solid #2a2a33;padding:10px 16px;border-radius:24px;width:320px;display:flex;gap:10px;align-items:center}
+.search input{background:transparent;border:none;outline:none;color:white;width:100%}
+.badge{background:#6c5bff;color:white;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700}
+.container{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:70px 1fr;gap:20px;padding:20px}
+.sidebar{background:#18181f;border-radius:18px;padding:15px 10px;height:fit-content;display:flex;flex-direction:column;align-items:center;gap:18px;position:sticky;top:85px}
+.icon{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;cursor:pointer;color:#888;transition:0.2s;font-size:20px}
+.icon.active,.icon:hover{background:#252530;color:white;box-shadow:0 0 15px rgba(108,91,255,0.4)}
+.main{display:grid;gap:22px}
+.hero{display:grid;grid-template-columns:1.6fr 0.8fr;gap:16px;height:320px}
+.hero-big{position:relative;border-radius:20px;overflow:hidden;background:#1c1c22;cursor:pointer}
+.hero-big img{width:100%;height:100%;object-fit:cover;transition:0.6s}
+.hero-big:hover img{transform:scale(1.05)}
+.hero-big::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,0.9) 0%,transparent 60%)}
+.hero-info{position:absolute;bottom:0;left:0;padding:22px;z-index:2}
+.hero-info h2{font-size:26px;line-height:1.1} .hero-info p{opacity:0.7;font-size:13px;margin-top:6px}
+.side-stack{display:grid;gap:16px}
+.side-card{border-radius:18px;overflow:hidden;background:#18181f;position:relative;height:152px;cursor:pointer;border:1px solid #252530;transition:0.3s}
+.side-card:hover{transform:translateY(-4px);border-color:#6c5bff;box-shadow:0 10px 30px rgba(108,91,255,0.3)}
+.side-card video,.side-card img{width:100%;height:100%;object-fit:cover;opacity:0.8}
+.side-card:hover video{opacity:1}
+.side-overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,0.85),transparent);padding:14px;display:flex;flex-direction:column;justify-content:flex-end}
+.price{position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.6);backdrop-filter:blur(10px);padding:5px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{border-radius:16px;background:#18181f;border:1px solid #252530;overflow:hidden;cursor:pointer;transition:0.3s;position:relative}
+.card:hover{transform:translateY(-6px) scale(1.02);border-color:#6c5bff;box-shadow:0 15px 40px rgba(108,91,255,0.25)}
+.card .thumb{height:160px;position:relative;overflow:hidden;background:#111}
+.card .thumb img,.card .thumb video{width:100%;height:100%;object-fit:cover}
+.card .thumb video{display:none} .card:hover .thumb video{display:block} .card:hover .thumb img{display:none}
+.card-body{padding:12px 14px} .card-body h4{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis} .card-body span{font-size:11px;opacity:0.5}
+@media(max-width:900px){.container{grid-template-columns:1fr}.sidebar{flex-direction:row;position:static;justify-content:space-around}.hero{grid-template-columns:1fr;height:auto}.grid{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
 <header>
-<div class="logo">BTech Comp. Eng. Portal 2026</div>
-<div style="display:flex;gap:10px;align-items:center">
-<span id="roleBadge" class="badge">Student</span>
-<button class="btn-outline" onclick="logout()">Logout</button>
+<div class="logo">BTech <span>STORE</span> • 2026 Portal</div>
+<div style="display:flex;gap:12px;align-items:center">
+<div class="search">🔍 <input placeholder="Search courses, notes, lecturers..."></div>
+<div id="roleBadge" class="badge">Student</div>
+<button onclick="localStorage.clear();location.href='index.html'" style="background:#252530;color:white;border:none;padding:8px 14px;border-radius:20px;cursor:pointer">Logout</button>
 </div>
 </header>
 
 <div class="container">
 <div class="sidebar">
-<h3 id="welcomeText">Welcome</h3>
-<ul class="menu" id="menu"></ul>
+<div class="icon active">🏠</div><div class="icon">📚</div><div class="icon">🎮</div><div class="icon">🗓️</div><div class="icon">📄</div><div class="icon">⚙️</div>
 </div>
 
 <div class="main">
-<div class="stats" id="stats"></div>
-<div class="card" id="content"></div>
+<div class="hero">
+<div class="hero-big" onmouseenter="playVid(this)" onmouseleave="pauseVid(this)">
+<img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800">
+<video loop muted src="https://cdn.coverr.co/videos/coverr-typing-on-computer-keyboard-1584/1080p.mp4"></video>
+<div class="hero-info"><h2 id="heroTitle">Data Structures & Algorithms</h2><p>Level 300 • Most Popular This Semester • 92% Attendance</p></div>
+</div>
+<div class="side-stack">
+<div class="side-card" onmouseenter="playVid(this)" onmouseleave="pauseVid(this)">
+<img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400"><video loop muted src="https://cdn.coverr.co/videos/coverr-cable-network-15786/1080p.mp4"></video>
+<div class="price">FREE</div><div class="side-overlay"><b>Networking Lab</b><span style="font-size:11px;opacity:0.6">Cisco Packet Tracer Files</span></div>
+</div>
+<div class="side-card" onmouseenter="playVid(this)" onmouseleave="pauseVid(this)">
+<img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400"><video loop muted src="https://cdn.coverr.co/videos/coverr-circuit-board-1574/1080p.mp4"></video>
+<div class="price">NEW</div><div class="side-overlay"><b>Embedded Systems</b><span style="font-size:11px;opacity:0.6">Arduino Projects</span></div>
+</div>
+</div>
+</div>
+
+<h3 style="opacity:0.7;font-size:14px;letter-spacing:2px">MY COURSES • HOVER TO PREVIEW</h3>
+<div class="grid" id="courseGrid"></div>
 </div>
 </div>
 
@@ -55,54 +83,26 @@ th{color:#666}
 const user = JSON.parse(localStorage.getItem('user')||'{}');
 if(!user.id) location.href='index.html';
 document.getElementById('roleBadge').innerText=user.role;
-document.getElementById('welcomeText').innerText=`${user.role}\n${user.id}`;
+document.getElementById('heroTitle').innerText = user.role==='Lecturer' ? 'Lecturer Dashboard - Manage Classes' : user.role==='Rep' ? 'Class Rep Console - 48 Students' : 'Data Structures & Algorithms';
 
-const roles = {
- Student:{
-   menu:['📊 Dashboard','📚 My Courses','🗓️ Timetable','📄 Notes','🎓 Results'],
-   stats:[{l:'CGPA',v:'3.72'},{l:'Courses',v:'6'},{l:'Attendance',v:'92%'}],
-   content:`<h3>My Timetable - Level 300</h3>
-   <table><tr><th>Day</th><th>Course</th><th>Time</th></tr>
-   <tr><td>Mon</td><td>Data Structures</td><td>8:00-10:00</td></tr>
-   <tr><td>Mon</td><td>Networking</td><td>10:30-12:30</td></tr>
-   <tr><td>Tue</td><td>Embedded Systems</td><td>9:00-11:00</td></tr>
-   <tr><td>Wed</td><td>Project Work</td><td>1:00-3:00</td></tr>
-   </table>
-   <br><h4>📄 Lecture Notes</h4><br>
-   <button class="btn" onclick="alert('Downloading Data Structures PDF...')">Download - Data Structures PDF</button>
-   <button class="btn-outline" style="margin-left:10px" onclick="alert('Downloading Past Questions...')">Past Questions</button>`
- },
- Lecturer:{
-   menu:['👨‍🏫 Class Overview','📤 Upload Material','📝 Attendance','📋 Student List','📢 Announce'],
-   stats:[{l:'Total Students',v:'48'},{l:'Materials',v:'12'},{l:'Avg Attendance',v:'87%'}],
-   content:`<h3>Upload Lecture Material</h3><br>
-   <input type="text" placeholder="Course Title" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;margin-bottom:10px">
-   <input type="file" style="margin-bottom:10px"><br>
-   <button class="btn" onclick="alert('Material uploaded successfully! (Demo)')">Upload</button>
-   <br><br><h3>BTECH/COMP/024 - Class List</h3>
-   <table><tr><th>Reg No</th><th>Name</th><th>Status</th></tr>
-   <tr><td>BTECH/COMP/024</td><td>Nana Yaw</td><td>Active</td></tr>
-   <tr><td>BTECH/COMP/001</td><td>Class Rep</td><td>Active</td></tr>
-   </table>`
- },
- Rep:{
-   menu:['📢 Dashboard','📝 Post Announcement','👥 Manage Class','📊 Reports','⚙️ Settings'],
-   stats:[{l:'Announcements',v:'5'},{l:'Students',v:'48'},{l:'Pending',v:'2'}],
-   content:`<h3>Post New Announcement</h3><br>
-   <textarea placeholder="Type announcement for class..." style="width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;height:80px"></textarea><br><br>
-   <button class="btn" onclick="alert('Announcement posted to all 48 students! (Demo)')">Post to Class</button>
-   <br><br><div style="background:#fff3cd;padding:15px;border-radius:10px">
-   <b>Latest:</b> Mid-Sem exam starts 15th Oct. - Posted by Rep, yesterday
-   </div>`
- }
-};
+const courses=[
+{title:'Data Structures',cat:'COMP 301',img:'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=400',vid:'https://cdn.coverr.co/videos/coverr-typing-on-computer-keyboard-1584/1080p.mp4'},
+{title:'Computer Networking',cat:'COMP 303',img:'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400',vid:'https://cdn.coverr.co/videos/coverr-cable-network-15786/1080p.mp4'},
+{title:'Embedded Systems',cat:'COMP 305',img:'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400',vid:'https://cdn.coverr.co/videos/coverr-circuit-board-1574/1080p.mp4'},
+{title:'Database Systems',cat:'COMP 302',img:'https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=400',vid:'https://cdn.coverr.co/videos/coverr-programming-4678/1080p.mp4'},
+{title:'Operating Systems',cat:'COMP 304',img:'https://images.unsplash.com/photo-1555099962-4199c345e5dd?w=400',vid:'https://cdn.coverr.co/videos/coverr-typing-on-computer-keyboard-1584/1080p.mp4'},
+{title:'Project Work',cat:'COMP 399',img:'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400',vid:'https://cdn.coverr.co/videos/coverr-circuit-board-1574/1080p.mp4'},
+{title:'Past Questions',cat:'Archive',img:'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400',vid:'https://cdn.coverr.co/videos/coverr-typing-on-computer-keyboard-1584/1080p.mp4'},
+{title:'Lecture Notes',cat:'Materials',img:'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400',vid:'https://cdn.coverr.co/videos/coverr-cable-network-15786/1080p.mp4'}
+];
+document.getElementById('courseGrid').innerHTML=courses.map(c=>`
+<div class="card" onmouseenter="playVid(this)" onmouseleave="pauseVid(this)" onclick="alert('Opening ${c.title}...')">
+<div class="thumb"><img src="${c.img}"><video loop muted src="${c.vid}"></video><div class="price" style="top:10px;left:10px;right:auto">▶ PREVIEW</div></div>
+<div class="card-body"><h4>${c.title}</h4><span>${c.cat}</span></div>
+</div>`).join('');
 
-const current = roles[user.role] || roles.Student;
-document.getElementById('menu').innerHTML = current.menu.map((m,i)=>`<li class="${i==0?'active':''}">${m}</li>`).join('');
-document.getElementById('stats').innerHTML = current.stats.map(s=>`<div class="stat"><h2>${s.v}</h2><p>${s.l}</p></div>`).join('');
-document.getElementById('content').innerHTML = current.content;
-
-function logout(){ localStorage.removeItem('user'); location.href='index.html'; }
+function playVid(el){ const v=el.querySelector('video'); if(v){ v.style.display='block'; v.play().catch(()=>{}); const i=el.querySelector('img'); if(i) i.style.display='none'; } }
+function pauseVid(el){ const v=el.querySelector('video'); if(v){ v.pause(); v.style.display='none'; const i=el.querySelector('img'); if(i) i.style.display='block'; } }
 </script>
 </body>
 </html>
